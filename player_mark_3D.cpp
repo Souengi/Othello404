@@ -40,6 +40,16 @@ const std::array<Point, 8> directions{{
     Point(0, -1), /*{0, 0}, */Point(0, 1),
     Point(1, -1), Point(1, 0), Point(1, 1)
 }};
+const std::array<std::array<int, SIZE>, SIZE> weight_point{{
+    {5, 1, 3, 3, 3, 3, 1, 5},
+    {1, 1, 2, 2, 2, 2, 1, 1},
+    {3, 2, 4, 4, 4, 4, 2, 3},
+    {3, 2, 4, 1, 1, 4, 2, 3},
+    {3, 2, 4, 1, 1, 4, 2, 3},
+    {3, 2, 4, 4, 4, 4, 2, 3},
+    {1, 1, 2, 2, 2, 2, 1, 1},
+    {5, 1, 3, 3, 3, 3, 1, 5}
+}};
 
 using Board = std::array<std::array<int, SIZE>, SIZE>;
 
@@ -111,15 +121,15 @@ std::vector<Point> get_valid_spots(Board b, int player) {
     return valid_spots;
 }
 int count_value(Board b){
-    int player_disc = 0;
-    int opposite_disc = 0;
+    int player_point = 0;
+    int opposite_point = 0;
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if(b[i][j] == player) player_disc++;
-            if(b[i][j] == opposite_player) opposite_disc++;
+            if(b[i][j] == player) player_point += weight_point[i][j];
+            if(b[i][j] == opposite_player) opposite_point += weight_point[i][j];
         }
     }
-    return player_disc - opposite_disc;
+    return player_point - opposite_point;
 }
 
 Board predict_board(Board cur_board, Point move, int player){
@@ -159,7 +169,7 @@ int alphabeta(Board board, int depth, int cur_player, int alpha = -9999, int bet
     int value;
     std::vector<Point> board_valid_spots = get_valid_spots(board, player);
     int n_valid = board_valid_spots.size();
-    if(depth == 6 || n_valid <= 0){//reach 2 step or game end
+    if(depth == 3 || n_valid <= 0){//reach 2 step or game end
         return count_value(board);
     }
     if(cur_player == player){//max player

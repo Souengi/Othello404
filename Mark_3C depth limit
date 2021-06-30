@@ -1,0 +1,6 @@
+at depth 3 - limit not found
+at depth 4 - limit at 12 valid spots
+at depth 5 - limit start from 7 valid spots to 10 valid spots
+at depth 6 - limit start from 4 valid spots
+at depth 7 - limit start from 4 valid spots
+-stop experiment//as starting valid spots is 4//

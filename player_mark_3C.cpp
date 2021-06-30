@@ -159,7 +159,7 @@ int alphabeta(Board board, int depth, int cur_player, int alpha = -9999, int bet
     int value;
     std::vector<Point> board_valid_spots = get_valid_spots(board, player);
     int n_valid = board_valid_spots.size();
-    if(depth == 6 || n_valid <= 0){//reach 2 step or game end
+    if(depth == 7 || n_valid <= 0){//reach 2 step or game end
         return count_value(board);
     }
     if(cur_player == player){//max player
